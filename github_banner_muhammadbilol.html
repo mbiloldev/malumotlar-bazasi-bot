@@ -1,0 +1,411 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;500;700;900&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .banner {
+    width: 100%;
+    min-height: 320px;
+    background: #0d1117;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Inter', sans-serif;
+    padding: 36px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Animated grid bg */
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(48,255,144,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(48,255,144,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 20s linear infinite;
+  }
+  @keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+  }
+
+  /* Glow blobs */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.18;
+    animation: blobPulse 6s ease-in-out infinite alternate;
+  }
+  .blob1 { width: 280px; height: 280px; background: #30ff90; top: -80px; right: 60px; animation-delay: 0s; }
+  .blob2 { width: 200px; height: 200px; background: #00bfff; bottom: -60px; left: 40px; animation-delay: 2s; }
+  .blob3 { width: 160px; height: 160px; background: #a855f7; top: 40px; left: 50%; animation-delay: 4s; }
+  @keyframes blobPulse {
+    0% { opacity: 0.12; transform: scale(1); }
+    100% { opacity: 0.22; transform: scale(1.15); }
+  }
+
+  /* Floating particles */
+  .particles { position: absolute; inset: 0; pointer-events: none; }
+  .dot {
+    position: absolute;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: #30ff90;
+    animation: floatDot linear infinite;
+    opacity: 0;
+  }
+  @keyframes floatDot {
+    0% { opacity: 0; transform: translateY(0px); }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.4; }
+    100% { opacity: 0; transform: translateY(-80px); }
+  }
+
+  /* Content */
+  .content { position: relative; z-index: 2; }
+
+  .top-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .name-block {}
+  .greeting {
+    font-size: 13px;
+    color: #30ff90;
+    font-family: 'Fira Code', monospace;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    animation: fadeSlideIn 0.8s ease both;
+  }
+  .name {
+    font-size: 36px;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.1;
+    animation: fadeSlideIn 1s ease 0.2s both;
+  }
+  .name span {
+    background: linear-gradient(90deg, #30ff90, #00bfff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .username {
+    font-size: 14px;
+    color: #8b949e;
+    font-family: 'Fira Code', monospace;
+    margin-top: 4px;
+    animation: fadeSlideIn 1s ease 0.35s both;
+  }
+
+  /* Status badge */
+  .status-badge {
+    background: rgba(48,255,144,0.1);
+    border: 1px solid rgba(48,255,144,0.3);
+    border-radius: 20px;
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    animation: fadeSlideIn 1s ease 0.5s both;
+  }
+  .status-dot {
+    width: 8px; height: 8px;
+    background: #30ff90;
+    border-radius: 50%;
+    animation: statusPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes statusPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(48,255,144,0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(48,255,144,0); }
+  }
+  .status-text {
+    font-size: 12px;
+    color: #30ff90;
+    font-family: 'Fira Code', monospace;
+  }
+
+  /* Bio */
+  .bio {
+    margin-top: 18px;
+    font-size: 15px;
+    color: #c9d1d9;
+    line-height: 1.6;
+    max-width: 500px;
+    animation: fadeSlideIn 1s ease 0.5s both;
+  }
+  .bio .highlight { color: #30ff90; font-weight: 500; }
+
+  /* Tech stack */
+  .stack {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    animation: fadeSlideIn 1s ease 0.7s both;
+  }
+  .tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-family: 'Fira Code', monospace;
+    color: #e6edf3;
+    transition: all 0.2s;
+  }
+  .tag:hover {
+    border-color: #30ff90;
+    color: #30ff90;
+    background: rgba(48,255,144,0.08);
+    cursor: default;
+  }
+  .tag.py { border-color: rgba(59,130,246,0.4); color: #60a5fa; }
+  .tag.js { border-color: rgba(234,179,8,0.4); color: #facc15; }
+  .tag.php { border-color: rgba(139,92,246,0.4); color: #a78bfa; }
+  .tag.cs { border-color: rgba(20,184,166,0.4); color: #2dd4bf; }
+  .tag.cpp { border-color: rgba(239,68,68,0.4); color: #f87171; }
+  .tag.tg { border-color: rgba(14,165,233,0.4); color: #38bdf8; }
+
+  /* Bottom row */
+  .bottom-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+    animation: fadeSlideIn 1s ease 0.9s both;
+  }
+  .links {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .link-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #8b949e;
+    font-family: 'Fira Code', monospace;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .link-item:hover { color: #30ff90; }
+  .link-icon { font-size: 14px; }
+
+  /* Stats */
+  .stats {
+    display: flex;
+    gap: 20px;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: #8b949e;
+    font-family: 'Fira Code', monospace;
+    margin-top: 2px;
+  }
+
+  /* Terminal blink */
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    height: 18px;
+    background: #30ff90;
+    vertical-align: middle;
+    margin-left: 4px;
+    animation: blink 1.1s step-end infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Typing animation for role */
+  .role {
+    font-size: 15px;
+    color: #8b949e;
+    font-family: 'Fira Code', monospace;
+    margin-top: 8px;
+    min-height: 22px;
+  }
+  .role-text { color: #00bfff; }
+
+  /* Divider line */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(48,255,144,0.3), rgba(0,191,255,0.3), transparent);
+    margin: 20px 0;
+    animation: fadeSlideIn 1s ease 0.8s both;
+  }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Code snippet decoration */
+  .code-corner {
+    position: absolute;
+    bottom: 16px;
+    right: 24px;
+    font-size: 11px;
+    font-family: 'Fira Code', monospace;
+    color: rgba(139,148,158,0.3);
+    z-index: 2;
+    line-height: 1.6;
+    text-align: right;
+  }
+  .code-corner .line-green { color: rgba(48,255,144,0.2); }
+  .code-corner .line-blue { color: rgba(0,191,255,0.2); }
+</style>
+
+<div class="banner">
+  <div class="grid-bg"></div>
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="content">
+    <div class="top-row">
+      <div class="name-block">
+        <div class="greeting">&gt; hello_world.init()</div>
+        <div class="name">Muhammadbilol <span>Qo'chqorov</span></div>
+        <div class="username">@mbiloldev · he/him</div>
+        <div class="role">
+          <span id="role-display" class="role-text"></span><span class="cursor" id="cursor"></span>
+        </div>
+      </div>
+      <div class="status-badge">
+        <div class="status-dot"></div>
+        <div class="status-text">Open to work</div>
+      </div>
+    </div>
+
+    <div class="bio">
+      Full-Stack Developer • <span class="highlight">Python/Django</span>, <span class="highlight">JS</span>, <span class="highlight">C++/C#</span> • Telegram Bots & Web Apps • <span class="highlight">IT Mentor</span> since 2023 — Transforming code into solutions 🚀
+    </div>
+
+    <div class="stack">
+      <span class="tag py">Python</span>
+      <span class="tag py">Django</span>
+      <span class="tag js">JavaScript</span>
+      <span class="tag php">PHP</span>
+      <span class="tag cs">C#</span>
+      <span class="tag cpp">C++</span>
+      <span class="tag cs">Tailwind CSS</span>
+      <span class="tag tg">Telegram Bots</span>
+      <span class="tag js">HTML5</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="bottom-row">
+      <div class="links">
+        <a href="https://github.com/mbiloldev" class="link-item">
+          <span class="link-icon">⬡</span> github.com/mbiloldev
+        </a>
+        <a href="https://t.me/IT_MENTOR_UZ" class="link-item">
+          <span class="link-icon">✈</span> t.me/IT_MENTOR_UZ
+        </a>
+        <a href="mailto:mblabx@gmail.com" class="link-item">
+          <span class="link-icon">✉</span> mblabx@gmail.com
+        </a>
+        <span class="link-item">
+          <span class="link-icon">📍</span> Uzbekistan, Tashkent
+        </span>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-num" style="color:#30ff90">6</span>
+          <div class="stat-label">repos</div>
+        </div>
+        <div class="stat">
+          <span class="stat-num" style="color:#00bfff">2023</span>
+          <div class="stat-label">mentor since</div>
+        </div>
+        <div class="stat">
+          <span class="stat-num" style="color:#a78bfa">∞</span>
+          <div class="stat-label">ideas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-corner">
+    <div class="line-green">// Full-Stack Developer</div>
+    <div class="line-blue">// Uzbekistan, Tashkent</div>
+    <div>// UTC +05:00</div>
+  </div>
+</div>
+
+<script>
+  const roles = [
+    "Full-Stack Developer",
+    "Python / Django Dev",
+    "Telegram Bot Creator",
+    "IT Mentor 👨‍🏫",
+    "C++ / C# Engineer",
+    "PHP Developer",
+  ];
+  let roleIndex = 0, charIndex = 0, deleting = false;
+  const roleEl = document.getElementById('role-display');
+
+  function typeRole() {
+    const current = roles[roleIndex];
+    if (!deleting) {
+      roleEl.textContent = current.substring(0, charIndex + 1);
+      charIndex++;
+      if (charIndex === current.length) {
+        deleting = true;
+        setTimeout(typeRole, 1800);
+        return;
+      }
+    } else {
+      roleEl.textContent = current.substring(0, charIndex - 1);
+      charIndex--;
+      if (charIndex === 0) {
+        deleting = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+      }
+    }
+    setTimeout(typeRole, deleting ? 50 : 80);
+  }
+  typeRole();
+
+  // Floating particles
+  const container = document.getElementById('particles');
+  const colors = ['#30ff90','#00bfff','#a855f7','#facc15'];
+  for (let i = 0; i < 22; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.style.left = Math.random() * 100 + '%';
+    dot.style.top = (30 + Math.random() * 70) + '%';
+    dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+    dot.style.animationDuration = (4 + Math.random() * 6) + 's';
+    dot.style.animationDelay = (Math.random() * 6) + 's';
+    dot.style.width = dot.style.height = (2 + Math.random() * 3) + 'px';
+    container.appendChild(dot);
+  }
+</script>
