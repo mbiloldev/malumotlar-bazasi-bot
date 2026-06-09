@@ -1,6 +1,6 @@
 import aiosqlite
 
-DB = "hulla.db"
+DB = "student.db"
 
 
 async def init_db():
