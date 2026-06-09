@@ -1,2 +1,3 @@
-# malumotlar-bazasi-bot
-Bu bot oquvchilarni royhatdan otkazish va kerakli payt soni nechtaligini bilish uchun
+markdown<div align="center">
+  <img src="./banner.svg" width="100%"/>
+</div>
